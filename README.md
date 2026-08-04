@@ -191,16 +191,9 @@ streamlit run app.py
 # Live Demo
 
 **Streamlit App**
+https://france-top50-playlistanalysis.streamlit.app/
 
 
-
----
-
-# Dashboard Preview
-
-
-
----
 
 # Developed By
 
