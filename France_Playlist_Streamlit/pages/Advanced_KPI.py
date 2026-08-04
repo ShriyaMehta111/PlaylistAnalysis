@@ -14,6 +14,7 @@ st.set_page_config(
 )
 
 from pathlib import Path
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSS_PATH = BASE_DIR / "assets" / "style.css"
