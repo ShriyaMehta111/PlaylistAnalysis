@@ -13,7 +13,11 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-with open("assets/style.css") as f:
+from pathlib import Path
+
+css_path = Path(__file__).parent / "assets" / "style.css"
+
+with open(css_path, "r") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # -------------------------------------------------
