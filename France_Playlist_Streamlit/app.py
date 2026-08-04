@@ -26,6 +26,12 @@ DATA_PATH = BASE_DIR / "data" / "france_top50_cleaned.csv"
 
 df = pd.read_csv(DATA_PATH)
 #df = pd.read_csv("../data/france_top50_cleaned.csv")
+from pathlib import Path
+
+css_path = Path(__file__).resolve().parent.parent / "assets" / "style.css"
+
+with open(css_path, "r") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # -------------------------------------------------
 # Sidebar
