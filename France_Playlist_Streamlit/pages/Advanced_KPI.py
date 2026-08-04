@@ -2,9 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from utils import footer
-from utils import load_data
 
-df = load_data()
 # ==========================================================
 # PAGE CONFIGURATION
 # ==========================================================
@@ -14,7 +12,13 @@ st.set_page_config(
     page_icon="📈",
     layout="wide"
 )
+from pathlib import Path
 
+css_path = Path(__file__).parent / "assets" / "style.css"
+
+with open(css_path, "r") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    
 with open("assets/style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
