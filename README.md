@@ -165,7 +165,7 @@ The Streamlit application provides an interactive version of the analysis with m
 Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/France_Playlist_Streamlit.git
+git clone https://github.com/ShriyaMehta111/PlaylistAnalysis.git
 ```
 
 Navigate to the project folder
