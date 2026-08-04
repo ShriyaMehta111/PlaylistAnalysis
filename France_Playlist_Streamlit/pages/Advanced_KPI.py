@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from utils import footer
+from utils import load_data
+
+df = load_data()
 # ==========================================================
 # PAGE CONFIGURATION
 # ==========================================================

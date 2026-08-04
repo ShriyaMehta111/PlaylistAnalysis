@@ -1,5 +1,8 @@
 import streamlit as st
 from utils import footer
+from utils import load_data
+
+df = load_data()
 # ==========================================================
 # PAGE CONFIGURATION
 # ==========================================================
