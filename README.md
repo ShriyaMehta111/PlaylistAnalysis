@@ -2,13 +2,13 @@
 This is my first git repository.
 Author - Shriya Mehta
 
-# 🎵 Audience Sensitivity, Content Compliance & Format Preference Analysis of France Top 50 Playlist
+# Audience Sensitivity, Content Compliance & Format Preference Analysis of France Top 50 Playlist
 
 A comprehensive data analytics project developed as part of the **Unified Mentor Internship Program** for **Atlantic Recording Corporation**. This project analyzes the France Top 50 Spotify playlist to understand audience sensitivity, explicit content acceptance, release format preferences, song duration trends, and album structure impact using **Python, Streamlit, and Power BI**.
 
 ---
 
-# 📌 Project Objective
+# Project Objective
 
 The primary objective of this project is to help Atlantic Recording Corporation understand the listening behavior of the French audience by analyzing:
 
@@ -22,7 +22,7 @@ These insights help support data-driven decisions for music release strategies, 
 
 ---
 
-# 📂 Dataset Information
+# Dataset Information
 
 The dataset contains daily snapshots of the **France Top 50 Playlist**.
 
@@ -43,7 +43,7 @@ The dataset contains daily snapshots of the **France Top 50 Playlist**.
 
 ---
 
-# 🛠 Technologies Used
+# Technologies Used
 
 - Python
 - Pandas
@@ -55,7 +55,7 @@ The dataset contains daily snapshots of the **France Top 50 Playlist**.
 
 ---
 
-# 📊 Project Workflow
+# Project Workflow
 
 ## 1. Data Preparation
 
@@ -103,7 +103,7 @@ Generated business recommendations based on the analytical findings.
 
 ---
 
-# 🌐 Streamlit Dashboard
+# Streamlit Dashboard
 
 The Streamlit application provides an interactive version of the analysis with multiple pages.
 
@@ -124,7 +124,7 @@ The Streamlit application provides an interactive version of the analysis with m
 
 ---
 
-# 📊 Key Findings
+# Key Findings
 
 - Album tracks represent **52.88%** of playlist entries, indicating a balanced preference for album releases.
 
@@ -142,7 +142,7 @@ The Streamlit application provides an interactive version of the analysis with m
 
 ---
 
-# 💡 Business Recommendations
+# Business Recommendations
 
 - Maintain a balanced mix of album releases and singles.
 
@@ -160,7 +160,7 @@ The Streamlit application provides an interactive version of the analysis with m
 
 ---
 
-# 🚀 Installation
+# Installation
 
 Clone the repository
 
@@ -188,7 +188,7 @@ streamlit run app.py
 
 ---
 
-# 🌍 Live Demo
+# Live Demo
 
 **Streamlit App**
 
@@ -196,13 +196,13 @@ streamlit run app.py
 
 ---
 
-# 📷 Dashboard Preview
+# Dashboard Preview
 
 
 
 ---
 
-# 👩‍💻 Developed By
+# Developed By
 
 **Shriya Mehta**
 
@@ -210,6 +210,6 @@ streamlit run app.py
 
 ---
 
-# 📄 License
+# License
 
 This project is developed for educational and internship purposes only.
