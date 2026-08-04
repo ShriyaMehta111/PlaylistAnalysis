@@ -13,9 +13,12 @@ st.set_page_config(
 
 from pathlib import Path
 
-css_path = Path(__file__).resolve().parent.parent / "assets" / "style.css"
+from pathlib import Path
 
-with open(css_path, "r") as f:
+BASE_DIR = Path(__file__).resolve().parent
+CSS_PATH = BASE_DIR / "assets" / "style.css"
+
+with open(CSS_PATH, "r", encoding="utf-8") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # ==========================================================
