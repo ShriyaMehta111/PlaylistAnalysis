@@ -26,7 +26,7 @@ with open(CSS_PATH, "r", encoding="utf-8") as f:
 from pathlib import Path
 import pandas as pd
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_PATH = BASE_DIR / "data" / "france_top50_cleaned.csv"
 
 df = pd.read_csv(DATA_PATH)
