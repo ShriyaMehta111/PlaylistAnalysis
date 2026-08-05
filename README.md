@@ -1,11 +1,10 @@
 # PlaylistAnalysis
-This is my first git repository.
-Author - Shriya Mehta
+
 
 # Audience Sensitivity, Content Compliance & Format Preference Analysis of France Top 50 Playlist
 
-A comprehensive data analytics project developed as part of the **Unified Mentor Internship Program** for **Atlantic Recording Corporation**. This project analyzes the France Top 50 Spotify playlist to understand audience sensitivity, explicit content acceptance, release format preferences, song duration trends, and album structure impact using **Python, Streamlit, and Power BI**.
-
+A comprehensive data analytics project developed as part of the **Unified Mentor Internship Program** for **Atlantic Recording Corporation**. This project analyzes the France Top 50 Spotify playlist to understand audience sensitivity, explicit content acceptance, release format preferences, song duration trends, and album structure impact using **Python, Streamlit**.
+**Author:** Shriya Mehta
 ---
 
 # Project Objective
@@ -96,7 +95,13 @@ Developed business KPIs including:
 
 ## 4. Business Insights
 
-Generated business recommendations based on the analytical findings.
+The analysis revealed several important trends in the French music market:
+
+- Explicit content has slightly higher representation, indicating strong audience acceptance.
+- Album releases perform competitively with singles, reflecting balanced listener preferences.
+- Songs with durations close to three minutes dominate the playlist.
+- Smaller albums generally achieve higher average popularity than larger albums.
+- Highly ranked songs consistently maintain strong popularity scores.
 
 ---
 
@@ -190,7 +195,7 @@ streamlit run app.py
 
 # Live Demo
 
-**Streamlit App**
+**Streamlit Dashboard**
 https://france-top50-playlistanalysis.streamlit.app/
 
 
