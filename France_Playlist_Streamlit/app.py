@@ -1,12 +1,16 @@
 import streamlit as st
-import pandas as pd
-from utils import footer
 
+from utils import (
+    load_css,
+    load_data,
+    sidebar_filters,
+    footer
+)
 
+# ======================================================
+# PAGE CONFIGURATION
+# ======================================================
 
-# -------------------------------------------------
-# Page Configuration
-# -------------------------------------------------
 st.set_page_config(
     page_title="France Top 50 Playlist Dashboard",
     page_icon="🎵",
@@ -14,43 +18,27 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ======================================================
+# LOAD CSS
+# ======================================================
 
-# -------------------------------------------------
-# Load Dataset
-# -------------------------------------------------
-from pathlib import Path
-import pandas as pd
+load_css()
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_PATH = BASE_DIR / "data" / "france_top50_cleaned.csv"
+# ======================================================
+# LOAD DATA
+# ======================================================
 
-df = pd.read_csv(DATA_PATH)
-#df = pd.read_csv("../data/france_top50_cleaned.csv")
+df = load_data()
 
-from pathlib import Path
+# ======================================================
+# APPLY GLOBAL FILTERS
+# ======================================================
 
-BASE_DIR = Path(__file__).resolve().parent
-CSS_PATH = BASE_DIR / "assets" / "style.css"
+filtered_df = sidebar_filters(df)
 
-with open(CSS_PATH, "r", encoding="utf-8") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-# -------------------------------------------------
-# Sidebar
-# -------------------------------------------------
-st.sidebar.title("🎵 Navigation")
-
-st.sidebar.success(
-    """
-    Welcome!
-
-    Use the pages below to explore the dashboard.
-    """
-)
-
-# -------------------------------------------------
-# Dashboard Title
-# -------------------------------------------------
-
+# ======================================================
+# HERO SECTION
+# ======================================================
 
 st.markdown("""
 <div class="hero-card">
@@ -58,88 +46,133 @@ st.markdown("""
 <h1>🎵 France Top 50 Playlist Dashboard</h1>
 
 <p>
-Interactive Business Intelligence Dashboard for analyzing
-France's Top 50 Spotify Playlist.
-Explore audience sensitivity, explicit content,
-album structure, release format preference,
-popularity trends and business insights.
+
+Interactive Business Intelligence Dashboard developed for
+Atlantic Recording Corporation to analyze France's Top 50 Spotify Playlist.
+
+This dashboard provides insights into:
+
+• Audience Sensitivity
+
+• Explicit Content Acceptance
+
+• Album vs Single Preference
+
+• Song Duration Trends
+
+• Album Structure
+
+• Executive Business Recommendations
+
 </p>
 
 </div>
 """, unsafe_allow_html=True)
 
+# ======================================================
+# OVERVIEW
+# ======================================================
+
 st.markdown("""
+
 <div class="description-card">
 
 <h3>Dashboard Overview</h3>
 
 <p>
-This dashboard analyzes the France Top 50 Playlist dataset to identify
-listener preferences, content characteristics and strategic insights.
+
+Explore playlist trends through interactive filters.
+
+The sidebar allows you to analyse different time periods,
+rank tiers, release formats and content types.
+
+All pages automatically respond to the selected filters.
+
 </p>
+
+</div>
+
+""", unsafe_allow_html=True)
+
+st.divider()
+
+# ======================================================
+# KPI SECTION
+# ======================================================
+
+st.markdown("""
+<div class="section-title">
+📊 Dashboard Overview
+</div>
+""", unsafe_allow_html=True)
+
+# ======================================================
+# KPIs
+# ======================================================
+
+total_songs = len(filtered_df)
+
+total_artists = filtered_df["artist"].nunique()
+
+avg_popularity = round(filtered_df["popularity"].mean(),2)
+
+avg_duration = round(filtered_df["duration_minutes"].mean(),2)
+
+explicit_percent = round(
+    filtered_df["is_explicit"].mean()*100,
+    2
+)
+
+clean_percent = round(
+    100-explicit_percent,
+    2
+)
+
+k1,k2,k3,k4,k5,k6 = st.columns(6)
+
+k1.metric("Songs", total_songs)
+
+k2.metric("Artists", total_artists)
+
+k3.metric("Popularity", avg_popularity)
+
+k4.metric("Duration", f"{avg_duration} min")
+
+k5.metric("Explicit", f"{explicit_percent}%")
+
+k6.metric("Clean", f"{clean_percent}%")
+
+st.divider()
+
+# ======================================================
+# INFORMATION
+# ======================================================
+
+st.markdown("""
+
+<div class="summary-card">
+
+<h3>Dashboard Navigation</h3>
+
+This project consists of four modules:
 
 <ul>
 
-<li>Audience Sensitivity</li>
+<li><b>Home</b> – Executive Overview</li>
 
-<li>Explicit Content Acceptance</li>
+<li><b>Advanced KPI Dashboard</b> – Business KPIs</li>
 
-<li>Album vs Single Preference</li>
+<li><b>Detailed Analysis</b> – Deep Analytical Visualisations</li>
 
-<li>Popularity Analysis</li>
-
-<li>Song Duration Trends</li>
-
-<li>Executive Business Insights</li>
+<li><b>Business Insights</b> – Strategic Recommendations</li>
 
 </ul>
 
-</div>
-""", unsafe_allow_html=True)
-
-st.divider()
-st.markdown("""
-<div class="section-title">
-Key Performance Indicators
-</div>
-""", unsafe_allow_html=True)
-# -------------------------------------------------
-# KPIs
-# -------------------------------------------------
-total_songs = len(df)
-total_artists = df["artist"].nunique()
-avg_popularity = round(df["popularity"].mean(), 2)
-avg_duration = round(df["duration_minutes"].mean(), 2)
-explicit_percent = round(df["is_explicit"].mean() * 100, 2)
-clean_ratio = round((~df["is_explicit"]).mean(), 2)
-
-col1, col2, col3, col4, col5, col6 = st.columns(6)
-
-col1.metric("Songs", total_songs)
-col2.metric("Artists", total_artists)
-col3.metric("Avg Popularity", avg_popularity)
-col4.metric("Clean Ratio", clean_ratio)
-col5.metric("Avg Duration", avg_duration)
-col6.metric("Explicit %", explicit_percent)
-
-st.divider()
-
-st.markdown("""
-<div class="footer-card">
-
-### Navigate Through the Dashboard
-
-Use the sidebar to explore:
-
-- Advanced KPI Dashboard
-- Detailed Analysis
-- Business Insights
-
-Each page focuses on a different aspect of the France Top 50 Playlist and provides interactive visualizations and business recommendations.
+Use the filters in the sidebar to interactively explore
+different sections of the France Top 50 Playlist.
 
 </div>
+
 """, unsafe_allow_html=True)
-
-
 
 footer()

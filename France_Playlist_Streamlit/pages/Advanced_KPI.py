@@ -1,7 +1,12 @@
 import streamlit as st
-import pandas as pd
 import plotly.express as px
-from utils import footer
+
+from utils import (
+    load_data,
+    load_css,
+    sidebar_filters,
+    footer
+)
 
 # ==========================================================
 # PAGE CONFIGURATION
@@ -13,58 +18,23 @@ st.set_page_config(
     layout="wide"
 )
 
-from pathlib import Path
-from pathlib import Path
+# ==========================================================
+# LOAD CSS
+# ==========================================================
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-CSS_PATH = BASE_DIR / "assets" / "style.css"
-
-with open(CSS_PATH, "r", encoding="utf-8") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+load_css()
 
 # ==========================================================
 # LOAD DATA
 # ==========================================================
-from pathlib import Path
-import pandas as pd
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-DATA_PATH = BASE_DIR / "data" / "france_top50_cleaned.csv"
-
-df = pd.read_csv(DATA_PATH)
-#df = pd.read_csv("../data/france_top50_cleaned.csv")
+df = load_data()
 
 # ==========================================================
-# DATA PREPARATION
+# APPLY GLOBAL FILTERS
 # ==========================================================
 
-df["duration_minutes"] = df["duration_ms"] / 60000
-
-df["duration_bucket"] = pd.cut(
-    df["duration_minutes"],
-    bins=[0,3,4,10],
-    labels=["Short","Medium","Long"]
-)
-
-def rank_group(position):
-    if position <= 10:
-        return "Top 10"
-    elif position <= 25:
-        return "Top 25"
-    else:
-        return "Top 50"
-
-df["rank_group"] = df["position"].apply(rank_group)
-
-df["album_size"] = pd.cut(
-    df["total_tracks"],
-    bins=[0,5,15,1000],
-    labels=["Small","Medium","Large"]
-)
-
-album_df = df[
-    df["album_type"].str.lower().isin(["album","single"])
-]
+filtered_df = sidebar_filters(df)
 
 # ==========================================================
 # PAGE TITLE
@@ -73,15 +43,17 @@ album_df = df[
 st.markdown("""
 <div class="executive-card">
 
-<h1>Advanced KPI Dashboard</h1>
+<h1>📈 Advanced KPI Dashboard</h1>
 
 <p>
 
 Executive overview of France's Top 50 Playlist.
 
-Monitor content performance, audience sensitivity,
-release strategy and playlist quality using
-business KPIs.
+Monitor content performance,
+audience sensitivity,
+release strategy,
+and playlist quality
+using business KPIs.
 
 </p>
 
@@ -94,22 +66,26 @@ st.divider()
 # KPI CALCULATIONS
 # ==========================================================
 
+album_df = filtered_df[
+    filtered_df["album_type"].str.lower().isin(["album", "single"])
+]
 
-explicit_share = df["is_explicit"].mean()*100
+explicit_share = filtered_df["is_explicit"].mean() * 100
 
-clean_share = 100-explicit_share
+clean_share = 100 - explicit_share
 
 single_ratio = (
     album_df["album_type"]
     .str.lower()
     .eq("single")
-    .mean()*100
+    .mean() * 100
 )
 
-avg_duration = df["duration_minutes"].mean()
+avg_duration = filtered_df["duration_minutes"].mean()
 
 album_size_popularity = (
-    df.groupby("album_size", observed=True)["popularity"]
+    filtered_df
+    .groupby("album_size", observed=True)["popularity"]
     .mean()
 )
 
@@ -119,11 +95,15 @@ album_size_impact = (
     album_size_popularity.min()
 )
 
-content_score = df["popularity"].mean()
+content_score = filtered_df["popularity"].mean()
+
+# ==========================================================
+# KPI TITLE
+# ==========================================================
 
 st.markdown("""
 <div class="kpi-title">
-Executive KPIs
+📊 Executive KPIs
 </div>
 """, unsafe_allow_html=True)
 
@@ -131,86 +111,91 @@ Executive KPIs
 # KPI ROW 1
 # ==========================================================
 
-kpi1,kpi2,kpi3 = st.columns(3)
+kpi1, kpi2, kpi3 = st.columns(3)
 
 with kpi1:
 
     st.metric(
-        "Explicit Share",
-        f"{explicit_share:.2f}%"
+        label="🔞 Explicit Share",
+        value=f"{explicit_share:.2f}%"
     )
 
 with kpi2:
 
     st.metric(
-        "Clean Ratio",
-        f"{clean_share:.2f}%"
+        label="🟢 Clean Share",
+        value=f"{clean_share:.2f}%"
     )
 
 with kpi3:
 
     st.metric(
-        "Single Ratio",
-        f"{single_ratio:.2f}%"
+        label="💿 Single Ratio",
+        value=f"{single_ratio:.2f}%"
     )
 
 # ==========================================================
 # KPI ROW 2
 # ==========================================================
 
-kpi4,kpi5,kpi6 = st.columns(3)
+kpi4, kpi5, kpi6 = st.columns(3)
 
 with kpi4:
 
     st.metric(
-        "Avg Duration",
-        f"{avg_duration:.2f} min"
+        label="⏱ Average Duration",
+        value=f"{avg_duration:.2f} min"
     )
 
 with kpi5:
 
     st.metric(
-        "Album Impact",
-        f"{album_size_impact:.2f}"
+        label="📦 Album Impact",
+        value=f"{album_size_impact:.2f}"
     )
 
 with kpi6:
 
     st.metric(
-        "Content Score",
-        f"{content_score:.2f}"
+        label="⭐ Content Score",
+        value=f"{content_score:.2f}"
     )
 
 st.divider()
 
 # ==========================================================
-# CHARTS
+# CHART ROW 1
 # ==========================================================
 
-chart1, chart2 = st.columns(2)
+col1, col2 = st.columns(2)
 
 # ----------------------------------------------------------
 # CHART 1
-# Explicit vs Clean Content Share
+# Explicit vs Clean
 # ----------------------------------------------------------
 
-with chart1:
-    
-    explicit_df = pd.DataFrame({
-        "Content": ["Explicit", "Clean"],
-        "Percentage": [explicit_share, clean_share]
+with col1:
+
+    st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+
+    explicit_df = filtered_df["is_explicit"].value_counts().reset_index()
+    explicit_df.columns = ["Content", "Count"]
+
+    explicit_df["Content"] = explicit_df["Content"].map({
+        True: "Explicit",
+        False: "Clean"
     })
 
     fig = px.pie(
         explicit_df,
         names="Content",
-        values="Percentage",
-        hole=0.55,
-        title="Explicit vs Clean Content Share",
+        values="Count",
+        hole=0.60,
+        title="Explicit vs Clean Content",
         color="Content",
         color_discrete_map={
-            "Explicit": "#EF4444",
-            "Clean": "#10B981"
+            "Explicit": "#4F46E5",
+            "Clean": "#0EA5E9"
         }
     )
 
@@ -221,24 +206,24 @@ with chart1:
 
     fig.update_layout(
         template="plotly_white",
-        plot_bgcolor="white",
-
         paper_bgcolor="white",
-
-        font=dict(size=15),
-        height=420,
-        legend_title="Content"
+        plot_bgcolor="white",
+        height=430,
+        legend_title=""
     )
-    st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+
     st.plotly_chart(fig, use_container_width=True)
+
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ----------------------------------------------------------
 # CHART 2
-# Album vs Single Share
+# Album vs Single
 # ----------------------------------------------------------
 
-with chart2:
+with col2:
+
+    st.markdown('<div class="chart-card">', unsafe_allow_html=True)
 
     album_share = (
         album_df["album_type"]
@@ -253,12 +238,12 @@ with chart2:
         album_share,
         names="Album Type",
         values="Count",
-        hole=0.55,
+        hole=0.60,
         title="Album vs Single Distribution",
         color="Album Type",
         color_discrete_map={
             "Album": "#4F46E5",
-            "Single": "#0EA5E9"
+            "Single": "#9699C2"
         }
     )
 
@@ -269,28 +254,30 @@ with chart2:
 
     fig.update_layout(
         template="plotly_white",
-        plot_bgcolor="white",
-
         paper_bgcolor="white",
-
-        font=dict(size=15),
-        height=420
+        plot_bgcolor="white",
+        height=430,
+        legend_title=""
     )
-    st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+
     st.plotly_chart(fig, use_container_width=True)
+
     st.markdown("</div>", unsafe_allow_html=True)
 
 st.divider()
 
 # ==========================================================
 # CHART 3
-# Duration Bucket Distribution
+# Duration Distribution
 # ==========================================================
 
+st.markdown('<div class="chart-card">', unsafe_allow_html=True)
+
 duration_count = (
-    df.groupby("duration_bucket", observed=True)
-      .size()
-      .reset_index(name="Songs")
+    filtered_df
+    .groupby("duration_bucket", observed=True)
+    .size()
+    .reset_index(name="Songs")
 )
 
 fig = px.bar(
@@ -303,36 +290,29 @@ fig = px.bar(
     color_discrete_sequence=[
         "#4F46E5",
         "#0EA5E9",
-        "#10B981"
+        "#9699C2"
     ]
 )
 
 fig.update_layout(
     template="plotly_white",
-    plot_bgcolor="white",
-
     paper_bgcolor="white",
-
-    font=dict(size=15),
-    height=450,
+    plot_bgcolor="white",
+    height=470,
     showlegend=False,
     xaxis_title="Duration Category",
     yaxis_title="Number of Songs"
 )
 
 fig.update_xaxes(showgrid=False)
+
 fig.update_yaxes(showgrid=False)
 
-st.markdown('<div class="chart-card">', unsafe_allow_html=True)
 st.plotly_chart(fig, use_container_width=True)
+
 st.markdown("</div>", unsafe_allow_html=True)
 
-
 st.divider()
-
-# ==========================================================
-# EXECUTIVE OBSERVATIONS
-# ==========================================================
 
 st.markdown("""
 <div class="summary-card">
@@ -343,19 +323,19 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.info(f"""
-• **Explicit songs** account for **{explicit_share:.2f}%** of the playlist, indicating strong audience acceptance.
+**Key Insights**
 
-• **Clean songs** still represent **{clean_share:.2f}%**, reflecting a balanced approach toward content compliance.
+• Explicit songs account for **{explicit_share:.2f}%** of the filtered playlist.
 
-• **Singles** represent **{single_ratio:.2f}%** of the filtered releases, showing healthy competition between singles and album tracks.
+• Clean songs represent **{clean_share:.2f}%**.
 
-• The **average song duration** is **{avg_duration:.2f} minutes**, aligning with modern streaming preferences.
+• Singles contribute **{single_ratio:.2f}%** of all filtered releases.
 
-• The **average popularity score** of **{content_score:.2f}** suggests that the playlist primarily consists of highly successful tracks.
+• Average song duration is **{avg_duration:.2f} minutes**.
 
-• The **Album Size Impact Index** of **{album_size_impact:.2f}** indicates measurable variation in popularity across different album sizes.
+• Content quality score is **{content_score:.2f}**, indicating consistently popular tracks.
+
+• Album popularity varies by **{album_size_impact:.2f}** points across album sizes.
 """)
-
-
 
 footer()

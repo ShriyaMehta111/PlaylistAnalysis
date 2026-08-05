@@ -1,98 +1,163 @@
-/*====================================================
-                GOOGLE FONT
-=====================================================*/
+/* ============================================
+   GOOGLE FONT
+============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/*====================================================
-                MAIN APP
-=====================================================*/
-
-html,
-body,
-[class*="css"]{
-    font-family:'Poppins',sans-serif;
+html, body, [class*="css"] {
+    font-family: "Poppins", sans-serif;
 }
+
+/* ============================================
+   MAIN APP
+============================================ */
 
 .stApp{
-    background:#F4F7FC;
+    background:#F5F7FA;
 }
 
-/*====================================================
-                CONTAINER
-=====================================================*/
+/* ============================================
+   SIDEBAR
+============================================ */
 
-.block-container{
-
-    padding-top:2rem;
-
-    padding-left:3rem;
-
-    padding-right:3rem;
-
-    padding-bottom:2rem;
-
+section[data-testid="stSidebar"]{
+    background:#FFFFFF;
+    border-right:1px solid #E5E7EB;
 }
 
-/*====================================================
-                SIDEBAR
-=====================================================*/
-
-[data-testid="stSidebar"]{
-
-    background:#0F172A;
-
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3{
+    color:#1E3A8A;
+    font-weight:700;
 }
 
-[data-testid="stSidebar"] *{
+/* ============================================
+   HERO CARD
+============================================ */
 
-    color:white !important;
-
-}
-
-/*====================================================
-                PAGE CARD
-=====================================================*/
-
-.page-card{
-
+.hero-card{
     background:white;
-
-    padding:30px;
-
+    padding:35px;
     border-radius:18px;
-
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-
-    margin-bottom:25px;
-
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    border-left:8px solid #2563EB;
+    margin-bottom:20px;
 }
+
+.hero-card h1{
+    color:#1E3A8A;
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.hero-card p{
+    color:#4B5563;
+    font-size:18px;
+    line-height:1.7;
+}
+
+/* ============================================
+   DESCRIPTION CARD
+============================================ */
 
 .description-card{
+    background:white;
+    padding:28px;
+    border-radius:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,.07);
+    margin-bottom:25px;
+}
+
+.description-card h3{
+    color:#1E3A8A;
+    margin-bottom:15px;
+}
+
+.description-card p,
+.description-card li{
+    color:#4B5563;
+    font-size:16px;
+    line-height:1.8;
+}
+
+/* ============================================
+   EXECUTIVE HEADER
+============================================ */
+
+.executive-card,
+.overview-card,
+.business-header{
 
     background:white;
-
-    padding:25px;
-
-    border-left:6px solid #2563EB;
+    padding:28px;
 
     border-radius:18px;
 
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
 
-    margin-bottom:25px;
+    border-left:7px solid #2563EB;
 
+    margin-bottom:20px;
 }
 
+.executive-card h1,
+.business-header h1{
+    color:#1E3A8A;
+}
+
+.executive-card p,
+.business-header p,
+.overview-card p{
+    color:#4B5563;
+    line-height:1.8;
+}
+
+/* ============================================
+   KPI TITLE
+============================================ */
+
+.kpi-title,
 .section-title{
 
     font-size:28px;
 
     font-weight:700;
 
-    color:#1E293B;
+    color:#1E3A8A;
 
+    margin-bottom:20px;
 }
+
+/* ============================================
+   KPI METRIC
+============================================ */
+
+div[data-testid="metric-container"]{
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    border:1px solid #E5E7EB;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+
+    transition:.3s;
+}
+
+div[data-testid="metric-container"]:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 20px rgba(0,0,0,.10);
+}
+
+/* ============================================
+   CHART CARD
+============================================ */
 
 .chart-card{
 
@@ -102,536 +167,163 @@ body,
 
     border-radius:18px;
 
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    border:1px solid #E5E7EB;
 
-    margin-bottom:20px;
-
-}
-
-.insight-card{
-
-    background:white;
-
-    border-left:6px solid #10B981;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-
-    margin-bottom:20px;
-
-}
-
-.recommendation-card{
-
-    background:#EEF6FF;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    border-left:6px solid #2563EB;
-
-    margin-top:20px;
-
-}
-
-hr{
-
-    margin-top:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
 
     margin-bottom:25px;
-
 }
-div[data-testid="stMetric"]{
+
+/* ============================================
+   SUMMARY CARD
+============================================ */
+
+.summary-card{
 
     background:white;
 
-    padding:18px;
+    padding:25px;
 
-    border-radius:16px;
+    border-radius:18px;
 
-    border:1px solid #E2E8F0;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-}
-div[data-testid="stMetric"]:hover{
-
-    transform:translateY(-5px);
-
-    transition:.3s;
-
-}
-.stButton button{
-
-    background:#2563EB;
-
-    color:white;
-
-    border-radius:10px;
-
-}
-div[data-baseweb="notification"]{
-
-    border-radius:14px;
-
+    border-left:6px solid #10B981;
 }
 
-/*====================================================
-                    HERO SECTION
-=====================================================*/
+.summary-card h3{
 
-.hero-card{
-
-    background:linear-gradient(135deg,#0F172A,#2563EB);
-
-    color:white;
-
-    padding:35px;
-
-    border-radius:20px;
-
-    margin-bottom:30px;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.12);
-
+    color:#1E3A8A;
 }
 
-.hero-card h1{
+.summary-card li{
 
-    color:white;
+    color:#4B5563;
 
-    font-size:42px;
-
-    font-weight:700;
-
-    margin-bottom:10px;
-
+    line-height:1.9;
 }
 
-.hero-card p{
+/* ============================================
+   RECOMMENDATION CARD
+============================================ */
 
-    color:#E2E8F0;
-
-    font-size:18px;
-
-    line-height:1.8;
-
-}
-
-
-/*====================================================
-                    DESCRIPTION CARD
-=====================================================*/
-
-.description-card{
+.recommendation-card{
 
     background:white;
 
     padding:30px;
 
-    border-radius:20px;
+    border-radius:18px;
 
-    border-left:7px solid #2563EB;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
 
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-    margin-bottom:25px;
-
+    border-left:7px solid #F59E0B;
 }
 
-.description-card h3{
+.recommendation-card h2{
 
-    color:#1E293B;
+    color:#1E3A8A;
 
-    font-size:26px;
-
-    margin-bottom:15px;
-
+    margin-bottom:20px;
 }
 
-.description-card ul{
+.recommendation-card li{
 
-    margin-top:15px;
+    font-size:16px;
 
+    color:#4B5563;
+
+    margin-bottom:12px;
+
+    line-height:1.8;
 }
 
-.description-card li{
-
-    padding:6px 0;
-
-    font-size:17px;
-
-}
-
-
-/*====================================================
-                    FOOTER CARD
-=====================================================*/
+/* ============================================
+   FOOTER CARD
+============================================ */
 
 .footer-card{
 
     background:white;
 
-    border-radius:18px;
-
-    padding:20px;
-
-    margin-top:30px;
-
-    border-left:6px solid #10B981;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-}
-
-/*====================================================
-                EXECUTIVE HEADER
-=====================================================*/
-
-.executive-card{
-
-    background:linear-gradient(135deg,#0F172A,#2563EB);
-
-    padding:30px;
-
-    border-radius:20px;
-
-    margin-bottom:25px;
-
-    color:white;
-
-    box-shadow:0px 8px 20px rgba(0,0,0,.15);
-
-}
-
-.executive-card h1{
-
-    color:white;
-
-    font-size:34px;
-
-    font-weight:700;
-
-}
-
-.executive-card p{
-
-    color:#E2E8F0;
-
-    font-size:17px;
-
-}
-
-
-/*====================================================
-                    CHART CARD
-=====================================================*/
-
-.chart-card{
-
-    background:white;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    margin-bottom:20px;
-
-    border:1px solid #E2E8F0;
-
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-
-}
-
-
-/*====================================================
-                EXECUTIVE SUMMARY
-=====================================================*/
-
-.summary-card{
-
-    background:white;
-
     padding:25px;
 
-    border-radius:20px;
-
-    border-left:7px solid #10B981;
-
-    margin-top:25px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-}
-
-
-/*====================================================
-                KPI TITLE
-=====================================================*/
-
-.kpi-title{
-
-    font-size:28px;
-
-    font-weight:700;
-
-    color:#1E293B;
-
-    margin-top:20px;
-
-    margin-bottom:20px;
-
-}
-
-/*====================================================
-                PAGE HEADER
-=====================================================*/
-
-.analysis-header{
-
-    background:linear-gradient(135deg,#0F172A,#2563EB);
-
-    padding:35px;
-
-    border-radius:20px;
-
-    margin-bottom:25px;
-
-    color:white;
-
-    box-shadow:0 8px 18px rgba(0,0,0,.12);
-
-}
-
-.analysis-header h1{
-
-    color:white;
-
-    font-size:36px;
-
-    font-weight:700;
-
-}
-
-.analysis-header p{
-
-    color:#E2E8F0;
-
-    font-size:17px;
-
-    line-height:1.8;
-
-}
-
-
-/*====================================================
-                OVERVIEW CARD
-=====================================================*/
-
-.overview-card{
-
-    background:linear-gradient(135deg,#0F172A,#2563EB);
-    color:white;
-    border-left:7px solid #2563EB;
-
     border-radius:18px;
 
-    padding:25px;
-
-    margin-bottom:25px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-}
-
-
-/*====================================================
-                SUMMARY CARD
-=====================================================*/
-
-.summary-card{
-
-    background:white;
-
-    border-left:7px solid #10B981;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    margin-top:25px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-}
-
-/*====================================================
-                BUSINESS HEADER
-=====================================================*/
-
-.business-header{
-
-    background:linear-gradient(135deg,#0F172A,#2563EB);
-
-    color:white;
-
-    padding:35px;
-
-    border-radius:20px;
-
-    margin-bottom:25px;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.12);
-
-}
-
-.business-header h1{
-
-    color:white;
-
-    font-size:36px;
-
-    font-weight:700;
-
-}
-
-.business-header p{
-
-    color:#E2E8F0;
-
-    font-size:17px;
-
-    line-height:1.8;
-
-}
-
-/*====================================================
-                INSIGHT CARD
-=====================================================*/
-
-.insight-card{
-
-    background:white;
-
-    border-radius:18px;
-
-    padding:22px;
-
-    margin-bottom:18px;
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
 
     border-left:6px solid #2563EB;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-    transition:.3s;
-
 }
 
-.insight-card:hover{
+/* ============================================
+   BUTTONS
+============================================ */
 
-    transform:translateY(-4px);
+.stButton>button{
 
-    box-shadow:0 8px 18px rgba(0,0,0,.12);
+    background:#2563EB;
 
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:10px 22px;
+
+    font-weight:600;
 }
 
-.insight-card h3{
+.stButton>button:hover{
 
-    color:#1E293B;
-
-    margin-bottom:12px;
-
+    background:#1D4ED8;
 }
 
-.insight-card p{
+/* ============================================
+   DIVIDER
+============================================ */
 
-    color:#475569;
-
-    line-height:1.8;
-
+hr{
+    border:0;
+    height:1px;
+    background:#E5E7EB;
+    margin-top:30px;
+    margin-bottom:30px;
 }
 
-/*====================================================
-            RECOMMENDATION CARD
-=====================================================*/
+/* ============================================
+   PLOTLY
+============================================ */
 
-.recommendation-card{
+.js-plotly-plot{
 
-    background:white;
-
-    border-radius:20px;
-
-    padding:30px;
-
-    border-left:8px solid #10B981;
-
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-
+    border-radius:15px;
 }
 
-.recommendation-card h2{
+/* ============================================
+   INFO BOXES
+============================================ */
 
-    color:#1E293B;
+div[data-testid="stAlert"]{
 
-    margin-bottom:20px;
+    border-radius:15px;
 
+    font-size:16px;
 }
 
-.recommendation-card li{
+/* ============================================
+   SCROLLBAR
+============================================ */
 
-    margin-bottom:12px;
-
-    color:#475569;
-
-    line-height:1.8;
-
+::-webkit-scrollbar{
+    width:10px;
 }
 
-/* ==========================================================
-   FOOTER
-========================================================== */
-
-/* Footer container (last bordered container on the page) */
-div[data-testid="stVerticalBlock"] > div:last-child div[data-testid="stVerticalBlockBorderWrapper"]{
-    margin-top: 50px;
-    padding: 20px;
-    border-radius: 18px !important;
-    border: 2px solid #2563EB !important;
-    background: linear-gradient(135deg, #FFFFFF, #F8FAFC);
-    box-shadow: 0 10px 30px rgba(37,99,235,0.12);
+::-webkit-scrollbar-thumb{
+    background:#2563EB;
+    border-radius:10px;
 }
 
-/* Footer Title */
-div[data-testid="stVerticalBlock"] > div:last-child h2{
-    color: #2563EB !important;
-    text-align: center;
-    font-weight: 700;
-    font-size: 20px;
-    margin-bottom: 8px;
-}
-
-/* Developed by */
-div[data-testid="stVerticalBlock"] > div:last-child p{
-    text-align: center;
-    color: #475569;
-    font-size: 17px;
-    margin: 6px 0;
-}
-
-/* Copyright */
-div[data-testid="stVerticalBlock"] > div:last-child .stCaption{
-    text-align: center;
-    color: #94A3B8 !important;
-    font-size: 14px;
-}
-
-/* Hover Effect */
-div[data-testid="stVerticalBlock"] > div:last-child div[data-testid="stVerticalBlockBorderWrapper"]:hover{
-    transform: translateY(-3px);
-    transition: 0.3s;
-    box-shadow: 0 18px 35px rgba(37,99,235,0.18);
+::-webkit-scrollbar-track{
+    background:#F5F7FA;
 }
